@@ -1,0 +1,5 @@
+# IntelliJ local config
+.idea
+
+# Project build
+target
