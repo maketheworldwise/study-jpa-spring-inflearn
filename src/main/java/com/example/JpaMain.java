@@ -17,17 +17,9 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Member member = new Member();
-			member.setId(1L);
-			member.setName("Hello");
-
-			System.out.println("=== BEFORE ===");
-			entityManager.persist(member);
-			System.out.println("=== AFTER ===");
-
-			Member findMember = entityManager.find(Member.class, 1L);
-			System.out.println("findMember.id : " + findMember.getId());
-			System.out.println("findMember.name : " + findMember.getName());
+			Member findMember1 = entityManager.find(Member.class, 1L);
+			Member findMember2 = entityManager.find(Member.class, 1L);
+			System.out.println(findMember1 == findMember2);
 
 			entityTransaction.commit();
 		} catch (Exception e) {
