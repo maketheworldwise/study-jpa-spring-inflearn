@@ -25,6 +25,10 @@ public class JpaMain {
 			entityManager.persist(member);
 			System.out.println("=== AFTER ===");
 
+			Member findMember = entityManager.find(Member.class, 1L);
+			System.out.println("findMember.id : " + findMember.getId());
+			System.out.println("findMember.name : " + findMember.getName());
+
 			entityTransaction.commit();
 		} catch (Exception e) {
 			entityTransaction.rollback();
