@@ -15,8 +15,12 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Member findMember = entityManager.find(Member.class, 3L);
-			findMember.setName("@");
+			Member member = new Member(4L, "!");
+
+			System.out.println("=== BEFORE ===");
+			entityManager.persist(member);
+			entityManager.flush();
+			System.out.println("=== AFTER ===");
 
 			entityTransaction.commit();
 		} catch (Exception e) {
