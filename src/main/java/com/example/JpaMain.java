@@ -1,7 +1,5 @@
 package com.example;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -17,9 +15,13 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Member findMember1 = entityManager.find(Member.class, 1L);
-			Member findMember2 = entityManager.find(Member.class, 1L);
-			System.out.println(findMember1 == findMember2);
+			Member member1 = new Member(2L, "World");
+			Member member2 = new Member(3L, "!");
+
+			System.out.println("=== BEFORE ===");
+			entityManager.persist(member1);
+			entityManager.persist(member2);
+			System.out.println("=== AFTER ===");
 
 			entityTransaction.commit();
 		} catch (Exception e) {
