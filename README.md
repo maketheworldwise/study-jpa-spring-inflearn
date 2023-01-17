@@ -7,3 +7,4 @@
 
 - main : 완성된 프로젝트
 - init : 초기 프로젝트 구조
+- persistent-context : 영속성 관리, 내부 동작 방식
