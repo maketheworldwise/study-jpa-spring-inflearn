@@ -15,14 +15,6 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Member findMember = entityManager.find(Member.class, 4L);
-			findMember.setName("data");
-
-			entityManager.detach(findMember);
-			// entityManager.clear();
-			// entityManager.close();
-
-			Member findMember2 = entityManager.find(Member.class, 4L);
 
 			entityTransaction.commit();
 		} catch (Exception e) {
