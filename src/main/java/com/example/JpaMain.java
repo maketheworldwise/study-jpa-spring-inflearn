@@ -16,7 +16,10 @@ public class JpaMain {
 
 		try {
 			Member member = new Member("kevin", 20, RoleType.USER, "description");
+
+			System.out.println("=== BEFORE ===");
 			entityManager.persist(member);
+			System.out.println("=== AFTER ===");
 
 			entityTransaction.commit();
 		} catch (Exception e) {
