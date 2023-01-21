@@ -15,6 +15,8 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
+			Member member = new Member("kevin", 20, RoleType.USER, "description");
+			entityManager.persist(member);
 
 			entityTransaction.commit();
 		} catch (Exception e) {

@@ -6,18 +6,28 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
 @Table(name = "MEMBER")
+@TableGenerator(
+	name = "MEMBER_SEQ_GENERATOR",
+	table = "MY_SEQUENCES",
+	pkColumnValue = "MEMBER_SEQ", allocationSize = 1)
 public class Member {
 
 	@Id
+	@GeneratedValue(
+		strategy = GenerationType.TABLE,
+		generator = "MEMBER_SEQ_GENERATOR")
 	private Long id;
 
 	@Column(name = "name")
@@ -41,5 +51,12 @@ public class Member {
 	private int temp;
 
 	public Member() {
+	}
+
+	public Member(String username, Integer age, RoleType roleType, String description) {
+		this.username = username;
+		this.age = age;
+		this.roleType = roleType;
+		this.description = description;
 	}
 }
