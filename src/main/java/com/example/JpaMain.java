@@ -15,10 +15,16 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Member member = new Member("kevin", 20, RoleType.USER, "description");
+			Member member1 = new Member("kevin1", 21, RoleType.USER, "description1");
+			Member member2 = new Member("kevin2", 22, RoleType.ADMIN, "description2");
 
 			System.out.println("=== BEFORE ===");
-			entityManager.persist(member);
+			entityManager.persist(member1);
+			entityManager.persist(member2);
+
+			for(int i = 0; i < 50; i++) {
+				entityManager.persist(new Member("test", 23, RoleType.USER, "test"));
+			}
 			System.out.println("=== AFTER ===");
 
 			entityTransaction.commit();

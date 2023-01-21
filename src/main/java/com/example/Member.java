@@ -11,16 +11,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
 @Table(name = "MEMBER")
+@TableGenerator(
+	name = "MEMBER_SEQ_GENERATOR",
+	table = "MY_SEQUENCES",
+	pkColumnValue = "MEMBER_SEQ", allocationSize = 50)
 public class Member {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(
+		strategy = GenerationType.TABLE,
+		generator = "MEMBER_SEQ_GENERATOR")
 	private Long id;
 
 	@Column(name = "name")
