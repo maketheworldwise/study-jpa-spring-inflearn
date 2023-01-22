@@ -21,9 +21,6 @@ public class Member {
 	@Column(name = "USERNAME")
 	private String name;
 
-	// @Column(name = "TEAM_ID")
-	// private Long teamId;
-
 	@ManyToOne
 	@JoinColumn(name = "TEAM_ID")
 	private Team team;

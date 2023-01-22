@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -16,17 +18,13 @@ public class JpaMain {
 
 		try {
 			// 저장
-			Team teamA = new Team();
-			teamA.setName("TeamA");
-			entityManager.persist(teamA);
-
-			Team teamB = new Team();
-			teamB.setName("TeamB");
-			entityManager.persist(teamB);
+			Team team = new Team();
+			team.setName("TeamA");
+			entityManager.persist(team);
 
 			Member member = new Member();
 			member.setName("Member1");
-			member.setTeam(teamA);
+			member.setTeam(team);
 			entityManager.persist(member);
 
 			entityManager.flush();
@@ -34,11 +32,10 @@ public class JpaMain {
 
 			// 조회
 			Member findMember = entityManager.find(Member.class, member.getId());
-			Team findTeam = findMember.getTeam();
-
-			// 수정
-			Team newTeam = entityManager.find(Team.class, 2L);
-			findMember.setTeam(newTeam);
+			List<Member> members = findMember.getTeam().getMembers();
+			for(Member m : members) {
+				System.out.println("member = " + m.getName());
+			}
 
 			entityTransaction.commit();
 		} catch (Exception e) {
