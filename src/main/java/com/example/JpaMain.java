@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -15,17 +17,28 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Member member1 = new Member("kevin1", 21, RoleType.USER, "description1");
-			Member member2 = new Member("kevin2", 22, RoleType.ADMIN, "description2");
+			// 저장
+			Team team = new Team();
+			team.setName("TeamA");
+			entityManager.persist(team);
 
-			System.out.println("=== BEFORE ===");
-			entityManager.persist(member1);
-			entityManager.persist(member2);
+			Member member = new Member();
+			member.setName("Member1");
+			member.chageTeam(team);
+			entityManager.persist(member);
 
-			for(int i = 0; i < 50; i++) {
-				entityManager.persist(new Member("test", 23, RoleType.USER, "test"));
+			// 주인이 아닌 곳에도 값 삽입
+			// team.getMembers().add(member);
+
+			// entityManager.flush();
+			// entityManager.clear();
+
+			// 조회
+			Team findTeam = entityManager.find(Team.class, team.getId());
+			List<Member> members = findTeam.getMembers();
+			for(Member m : members) {
+				System.out.println("member = " + m.getName());
 			}
-			System.out.println("=== AFTER ===");
 
 			entityTransaction.commit();
 		} catch (Exception e) {

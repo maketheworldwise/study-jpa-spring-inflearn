@@ -9,3 +9,4 @@
 - init : 초기 프로젝트 구조
 - persistent-context : 영속성 관리, 내부 동작 방식
 - entity-mapping: 엔티티 매핑
+- association-mapping-basic : 연관관계 매핑 기초

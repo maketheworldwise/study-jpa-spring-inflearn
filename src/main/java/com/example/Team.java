@@ -1,29 +1,29 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MEMBER")
-public class Member {
+@Table(name = "TEAM")
+public class Team {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "MEMBER_ID")
+	@Column(name = "TEAM_ID")
 	private Long id;
 
-	@Column(name = "USERNAME")
 	private String name;
 
-	@ManyToOne
-	@JoinColumn(name = "TEAM_ID")
-	private Team team;
+	@OneToMany(mappedBy = "team")
+	private List<Member> members = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -41,12 +41,11 @@ public class Member {
 		this.name = name;
 	}
 
-	public Team getTeam() {
-		return team;
+	public List<Member> getMembers() {
+		return members;
 	}
 
-	public void chageTeam(Team team) {
-		this.team = team;
-		team.getMembers().add(this);
+	public void setMembers(List<Member> members) {
+		this.members = members;
 	}
 }
