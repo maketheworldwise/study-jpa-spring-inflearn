@@ -24,15 +24,18 @@ public class JpaMain {
 
 			Member member = new Member();
 			member.setName("Member1");
-			member.setTeam(team);
+			member.chageTeam(team);
 			entityManager.persist(member);
 
-			entityManager.flush();
-			entityManager.clear();
+			// 주인이 아닌 곳에도 값 삽입
+			// team.getMembers().add(member);
+
+			// entityManager.flush();
+			// entityManager.clear();
 
 			// 조회
-			Member findMember = entityManager.find(Member.class, member.getId());
-			List<Member> members = findMember.getTeam().getMembers();
+			Team findTeam = entityManager.find(Team.class, team.getId());
+			List<Member> members = findTeam.getMembers();
 			for(Member m : members) {
 				System.out.println("member = " + m.getName());
 			}
