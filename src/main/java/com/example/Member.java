@@ -21,6 +21,10 @@ public class Member {
 	@Column(name = "USERNAME")
 	private String name;
 
+	@ManyToOne
+	@JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+	private Team team;
+
 	// @ManyToOne
 	// @JoinColumn(name = "TEAM_ID")
 	// private Team team;
