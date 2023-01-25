@@ -10,3 +10,4 @@
 - persistent-context : 영속성 관리, 내부 동작 방식
 - entity-mapping: 엔티티 매핑
 - association-mapping-basic : 연관관계 매핑 기초
+- association-mapping-advanced : 다양한 연관관계 매핑

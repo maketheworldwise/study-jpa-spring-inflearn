@@ -17,28 +17,17 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			// 저장
-			Team team = new Team();
-			team.setName("TeamA");
-			entityManager.persist(team);
-
 			Member member = new Member();
 			member.setName("Member1");
-			member.chageTeam(team);
 			entityManager.persist(member);
 
-			// 주인이 아닌 곳에도 값 삽입
-			// team.getMembers().add(member);
+			Team team = new Team();
+			team.setName("Team");
 
-			// entityManager.flush();
-			// entityManager.clear();
+			// MEMBER 테이블에 대한 UPDATE 쿼리 발생
+			team.getMembers().add(member);
 
-			// 조회
-			Team findTeam = entityManager.find(Team.class, team.getId());
-			List<Member> members = findTeam.getMembers();
-			for(Member m : members) {
-				System.out.println("member = " + m.getName());
-			}
+			entityManager.persist(team);
 
 			entityTransaction.commit();
 		} catch (Exception e) {
