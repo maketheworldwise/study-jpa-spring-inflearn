@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,8 +21,11 @@ public class Product {
 
 	private String name;
 
-	@ManyToMany(mappedBy = "products")
-	private List<Member> members = new ArrayList<>();
+	// @ManyToMany(mappedBy = "products")
+	// private List<Member> members = new ArrayList<>();
+
+	@OneToMany(mappedBy = "product")
+	private List<MemberProduct> memberProducts = new ArrayList<>();
 
 	public Long getId() {
 		return id;
