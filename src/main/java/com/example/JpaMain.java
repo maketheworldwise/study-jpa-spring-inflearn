@@ -27,9 +27,9 @@ public class JpaMain {
 			entityManager.flush();
 			entityManager.clear();
 
-			// 조인을 이용한 조회
-			Movie findMovie = entityManager.find(Movie.class, movie.getId());
-			System.out.println("findMovie = " + findMovie);
+			// 부모 클래스 타입으로 조회
+			Item findItem = entityManager.find(Item.class, movie.getId());
+			System.out.println("findItem = " + findItem);
 
 			entityTransaction.commit();
 		} catch (Exception e) {
