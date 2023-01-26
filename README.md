@@ -11,3 +11,4 @@
 - entity-mapping: 엔티티 매핑
 - association-mapping-basic : 연관관계 매핑 기초
 - association-mapping-advanced : 다양한 연관관계 매핑
+- inheritance-mapping : 고급 매핑
