@@ -1,7 +1,5 @@
 package com.example;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -17,17 +15,21 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Member member = new Member();
-			member.setName("Member1");
-			entityManager.persist(member);
+			// ITEM, MOVIE 테이블에 데이터 저장
+			Movie movie = new Movie();
+			movie.setDirector("A");
+			movie.setActor("B");
+			movie.setName("바람과함께사라지다");
+			movie.setPrice(10000);
 
-			Team team = new Team();
-			team.setName("Team");
+			entityManager.persist(movie);
 
-			// MEMBER 테이블에 대한 UPDATE 쿼리 발생
-			team.getMembers().add(member);
+			entityManager.flush();
+			entityManager.clear();
 
-			entityManager.persist(team);
+			// 부모 클래스 타입으로 조회
+			Item findItem = entityManager.find(Item.class, movie.getId());
+			System.out.println("findItem = " + findItem);
 
 			entityTransaction.commit();
 		} catch (Exception e) {
