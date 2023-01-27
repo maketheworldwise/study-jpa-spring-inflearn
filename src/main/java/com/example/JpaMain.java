@@ -19,8 +19,19 @@ public class JpaMain {
 		try {
 			Member member = new Member();
 			member.setName("member");
-			member.setCreatedAt(LocalDateTime.now());
 			entityManager.persist(member);
+
+		 	entityManager.flush();
+			entityManager.clear();
+
+			// Member findMember = entityManager.find(Member.class, member.getId());
+			// System.out.println("id = " + findMember.getId());
+			// System.out.println("name = " + findMember.getName());
+
+			Member findMember = entityManager.getReference(Member.class, member.getId());
+			System.out.println("findMember = " + findMember.getClass());
+			System.out.println("id = " + findMember.getId()); // DB에서 안가져와도 되는 내용
+			System.out.println("name = " + findMember.getName()); // DB에서 가져와야하는 내용
 
 			entityTransaction.commit();
 		} catch (Exception e) {
