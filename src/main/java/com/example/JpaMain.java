@@ -24,15 +24,19 @@ public class JpaMain {
 		 	entityManager.flush();
 			entityManager.clear();
 
-			Member findMember1 = entityManager.find(Member.class, member.getId());
-			System.out.println("findMember1 : " + findMember1.getClass()); // Member
+			Member findMember1 = entityManager.getReference(Member.class, member.getId());
+			System.out.println("findMember1 : " + findMember1.getClass());
 
-			Member findMember2 = entityManager.getReference(Member.class, member.getId());
-			System.out.println("findMember2 : " + findMember2.getClass()); // 프록시 객체가 아닌 Member 출력
+			entityManager.detach(findMember1);
+			// entityManager.clear();
+			// entityManager.close();
+
+			System.out.println(findMember1.getName());
 
 			entityTransaction.commit();
 		} catch (Exception e) {
 			entityTransaction.rollback();
+			e.printStackTrace();
 		} finally {
 			entityManager.close();
 		}
