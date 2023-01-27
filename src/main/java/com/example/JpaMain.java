@@ -29,9 +29,12 @@ public class JpaMain {
 			// System.out.println("name = " + findMember.getName());
 
 			Member findMember = entityManager.getReference(Member.class, member.getId());
-			System.out.println("findMember = " + findMember.getClass());
+			System.out.println("Before findMember = " + findMember.getClass());
+
 			System.out.println("id = " + findMember.getId()); // DB에서 안가져와도 되는 내용
 			System.out.println("name = " + findMember.getName()); // DB에서 가져와야하는 내용
+
+			System.out.println("After findMember = " + findMember.getClass());
 
 			entityTransaction.commit();
 		} catch (Exception e) {
