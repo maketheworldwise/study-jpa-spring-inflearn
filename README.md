@@ -12,3 +12,4 @@
 - association-mapping-basic : 연관관계 매핑 기초
 - association-mapping-advanced : 다양한 연관관계 매핑
 - inheritance-mapping : 고급 매핑
+- proxy : 프록시와 연관관계 관리
