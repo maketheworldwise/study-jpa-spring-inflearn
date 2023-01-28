@@ -20,22 +20,19 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Team team = new Team();
-			team.setName("team1");
-			entityManager.persist(team);
+			Child child1 = new Child();
+			child1.setName("child1");
 
-			Member member = new Member();
-			member.setName("member1");
-			member.setTeam(team);
-			entityManager.persist(member);
+			Child child2 = new Child();
+			child2.setName("child2");
 
-		 	entityManager.flush();
-			entityManager.clear();
+			Parent parent = new Parent();
+			parent.addChild(child1);
+			parent.addChild(child2);
 
-			// Member findMember = entityManager.find(Member.class, member.getId());
-
-			List<Member> memberList = entityManager.createQuery("select m from Member m join fetch m.team", Member.class)
-				.getResultList();
+			entityManager.persist(parent);
+			// entityManager.persist(child1);
+			// entityManager.persist(child2);
 
 			entityTransaction.commit();
 		} catch (Exception e) {
