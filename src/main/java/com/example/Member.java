@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,8 +29,8 @@ public class Member extends BaseEntity {
 	@Column(name = "USERNAME")
 	private String name;
 
-	@ManyToOne
-	@JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "TEAM_ID", nullable = false)
 	private Team team;
 
 	public Long getId() {
@@ -50,5 +51,9 @@ public class Member extends BaseEntity {
 
 	public Team getTeam() {
 		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 }

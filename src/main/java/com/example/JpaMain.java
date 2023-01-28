@@ -1,6 +1,7 @@
 package com.example;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,21 +20,22 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
+			Team team = new Team();
+			team.setName("team1");
+			entityManager.persist(team);
+
 			Member member = new Member();
 			member.setName("member1");
+			member.setTeam(team);
 			entityManager.persist(member);
 
 		 	entityManager.flush();
 			entityManager.clear();
 
-			Member findMember1 = entityManager.getReference(Member.class, member.getId());
-			System.out.println("findMember1 : " + findMember1.getClass());
+			// Member findMember = entityManager.find(Member.class, member.getId());
 
-			System.out.println("Before isLoaded = " + entityManagerFactory.getPersistenceUnitUtil().isLoaded(findMember1));
-			System.out.println(findMember1.getName()); // 프록시 초기화
-			System.out.println("After isLoaded = " + entityManagerFactory.getPersistenceUnitUtil().isLoaded(findMember1));
-
-			Hibernate.initialize(findMember1); // 강제 초기화
+			List<Member> memberList = entityManager.createQuery("select m from Member m join fetch m.team", Member.class)
+				.getResultList();
 
 			entityTransaction.commit();
 		} catch (Exception e) {

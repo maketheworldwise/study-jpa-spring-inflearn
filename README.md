@@ -13,3 +13,4 @@
 - association-mapping-advanced : 다양한 연관관계 매핑
 - inheritance-mapping : 고급 매핑
 - proxy : 프록시와 연관관계 관리
+- loading : 즉시 로딩, 지연 로딩
