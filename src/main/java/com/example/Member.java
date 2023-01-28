@@ -30,7 +30,7 @@ public class Member extends BaseEntity {
 	private String name;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "TEAM_ID")
+	@JoinColumn(name = "TEAM_ID", nullable = false)
 	private Team team;
 
 	public Long getId() {
