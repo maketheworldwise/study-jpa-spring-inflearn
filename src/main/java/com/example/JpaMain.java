@@ -1,6 +1,7 @@
 package com.example;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -31,16 +32,10 @@ public class JpaMain {
 		 	entityManager.flush();
 			entityManager.clear();
 
-			Member findMember = entityManager.find(Member.class, member.getId());
-			Team findTeam = findMember.getTeam();
+			// Member findMember = entityManager.find(Member.class, member.getId());
 
-			System.out.println("findMember class = " + findMember.getClass());
-			System.out.println("findTeam class = " + findTeam.getClass());
-
-			// 사용하는 시점에 초기화
-			System.out.println("=== BEFORE ===");
-			System.out.println(findTeam.getName());
-			System.out.println("=== AFTER ===");
+			List<Member> memberList = entityManager.createQuery("select m from Member m", Member.class)
+				.getResultList();
 
 			entityTransaction.commit();
 		} catch (Exception e) {
