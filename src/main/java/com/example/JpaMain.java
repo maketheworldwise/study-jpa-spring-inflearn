@@ -34,7 +34,7 @@ public class JpaMain {
 
 			// Member findMember = entityManager.find(Member.class, member.getId());
 
-			List<Member> memberList = entityManager.createQuery("select m from Member m", Member.class)
+			List<Member> memberList = entityManager.createQuery("select m from Member m join fetch m.team", Member.class)
 				.getResultList();
 
 			entityTransaction.commit();
