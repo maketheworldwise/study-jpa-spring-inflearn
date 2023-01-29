@@ -38,17 +38,19 @@ public class JpaMain {
 			System.out.println("=== READ MEMBER ===");
 			Member findMember = entityManager.find(Member.class, member.getId());
 
-			System.out.println("=== READ FAVORITE FOOD ===");
-			Set<String> favoriteFoods = findMember.getFavoriteFoods();
-			for(String favoriteFood : favoriteFoods) {
-				System.out.println("favoriteFood : " + favoriteFood);
-			}
+			// System.out.println("=== UPDATE MEMBER ===");
+			// // homeAddress : homeCity -> newCity
+			// Address oldHomeAddress = findMember.getHomeAddress();
+			// findMember.setHomeAddress(new Address("newCity", oldHomeAddress.getStreet(), oldHomeAddress.getZipcode()));
 
-			System.out.println("=== READ ADDRESS HISTORY ===");
-			List<Address> addressHistory = findMember.getAddressHistory();
-			for(Address address : addressHistory) {
-				System.out.println("addressHistory : " + address.getCity());
-			}
+			// System.out.println("=== UPDATE FAVORITE FOOD ===");
+			// // favoriteFood : chicken -> rice (기본 값 타입이기에 값만 변경해주면 됨)
+			// findMember.getFavoriteFoods().remove("chicken");
+			// findMember.getFavoriteFoods().add("rice");
+
+			System.out.println("=== UPDATE ADDRESS HISTORY ===");
+			findMember.getAddressHistory().remove(new Address("old1", "street", "zipcode"));
+			findMember.getAddressHistory().add(new Address("young", "street", "zipcode"));
 
 			entityTransaction.commit();
 		} catch (Exception e) {
