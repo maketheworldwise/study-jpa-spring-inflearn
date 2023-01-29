@@ -15,3 +15,4 @@
 - proxy : 프록시와 연관관계 관리
 - loading : 즉시 로딩, 지연 로딩
 - cascade : 영속성 전이와 고아 객체
+- value-type : 값 타입

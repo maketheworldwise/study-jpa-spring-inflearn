@@ -2,13 +2,12 @@ package com.example;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-
-import org.hibernate.Hibernate;
 
 public class JpaMain {
 
@@ -20,23 +19,41 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Child child1 = new Child();
-			child1.setName("child1");
+			Member member = new Member();
+			member.setName("member1");
+			member.setHomeAddress(new Address("homeCity", "street", "zipcode"));
 
-			Child child2 = new Child();
-			child2.setName("child2");
+			member.getFavoriteFoods().add("chicken");
+			member.getFavoriteFoods().add("hamburger");
+			member.getFavoriteFoods().add("pizza");
 
-			Parent parent = new Parent();
-			parent.addChild(child1);
-			parent.addChild(child2);
+			// member.getAddressHistory().add(new Address("old1", "street", "zipcode"));
+			// member.getAddressHistory().add(new Address("old2", "street", "zipcode"));
 
-			entityManager.persist(parent);
+			member.getAddressHistory().add(new AddressEntity("old1", "street", "zipcode"));
+			member.getAddressHistory().add(new AddressEntity("old2", "street", "zipcode"));
+
+			entityManager.persist(member);
 
 			entityManager.flush();
 			entityManager.clear();
 
-			Parent findParent = entityManager.find(Parent.class, parent.getId());
-			findParent.getChildList().remove(0);
+			System.out.println("=== READ MEMBER ===");
+			Member findMember = entityManager.find(Member.class, member.getId());
+
+			// System.out.println("=== UPDATE MEMBER ===");
+			// // homeAddress : homeCity -> newCity
+			// Address oldHomeAddress = findMember.getHomeAddress();
+			// findMember.setHomeAddress(new Address("newCity", oldHomeAddress.getStreet(), oldHomeAddress.getZipcode()));
+
+			// System.out.println("=== UPDATE FAVORITE FOOD ===");
+			// // favoriteFood : chicken -> rice (기본 값 타입이기에 값만 변경해주면 됨)
+			// findMember.getFavoriteFoods().remove("chicken");
+			// findMember.getFavoriteFoods().add("rice");
+
+			System.out.println("=== UPDATE ADDRESS HISTORY ===");
+			findMember.getAddressHistory().remove(new AddressEntity("old1", "street", "zipcode"));
+			findMember.getAddressHistory().add(new AddressEntity("young", "street", "zipcode"));
 
 			entityTransaction.commit();
 		} catch (Exception e) {
