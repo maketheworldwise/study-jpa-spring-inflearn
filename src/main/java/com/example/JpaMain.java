@@ -31,7 +31,25 @@ public class JpaMain {
 			member.getAddressHistory().add(new Address("old2", "street", "zipcode"));
 
 			entityManager.persist(member);
-			
+
+			entityManager.flush();
+			entityManager.clear();
+
+			System.out.println("=== READ MEMBER ===");
+			Member findMember = entityManager.find(Member.class, member.getId());
+
+			System.out.println("=== READ FAVORITE FOOD ===");
+			Set<String> favoriteFoods = findMember.getFavoriteFoods();
+			for(String favoriteFood : favoriteFoods) {
+				System.out.println("favoriteFood : " + favoriteFood);
+			}
+
+			System.out.println("=== READ ADDRESS HISTORY ===");
+			List<Address> addressHistory = findMember.getAddressHistory();
+			for(Address address : addressHistory) {
+				System.out.println("addressHistory : " + address.getCity());
+			}
+
 			entityTransaction.commit();
 		} catch (Exception e) {
 			entityTransaction.rollback();
