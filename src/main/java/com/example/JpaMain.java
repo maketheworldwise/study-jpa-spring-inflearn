@@ -1,14 +1,11 @@
 package com.example;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-
-import org.hibernate.Hibernate;
 
 public class JpaMain {
 
@@ -20,23 +17,12 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Child child1 = new Child();
-			child1.setName("child1");
+			Member member = new Member();
+			member.setName("member");
+			member.setWorkPeriod(new Period(LocalDateTime.now(), LocalDateTime.now()));
+			member.setHomeAddress(new Address("city", "street", "zipcode"));
 
-			Child child2 = new Child();
-			child2.setName("child2");
-
-			Parent parent = new Parent();
-			parent.addChild(child1);
-			parent.addChild(child2);
-
-			entityManager.persist(parent);
-
-			entityManager.flush();
-			entityManager.clear();
-
-			Parent findParent = entityManager.find(Parent.class, parent.getId());
-			findParent.getChildList().remove(0);
+			entityManager.persist(member);
 
 			entityTransaction.commit();
 		} catch (Exception e) {
