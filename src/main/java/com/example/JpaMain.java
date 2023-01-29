@@ -17,12 +17,18 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Member member = new Member();
-			member.setName("member");
-			member.setWorkPeriod(new Period(LocalDateTime.now(), LocalDateTime.now()));
-			member.setHomeAddress(new Address("city", "street", "zipcode"));
+			Address address = new Address("city", "street", "zipcode");
+			Member member1 = new Member();
+			member1.setHomeAddress(address);
+			entityManager.persist(member1);
 
-			entityManager.persist(member);
+			Address copyAddress = new Address("city", "street", "zipcode");
+			Member member2 = new Member();
+			member2.setHomeAddress(copyAddress);
+			entityManager.persist(member2);
+
+			// Setter 사용 불가!!
+			// member1.getHomeAddress().setCity("newCity");
 
 			entityTransaction.commit();
 		} catch (Exception e) {
