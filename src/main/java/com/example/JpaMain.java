@@ -27,8 +27,11 @@ public class JpaMain {
 			member.getFavoriteFoods().add("hamburger");
 			member.getFavoriteFoods().add("pizza");
 
-			member.getAddressHistory().add(new Address("old1", "street", "zipcode"));
-			member.getAddressHistory().add(new Address("old2", "street", "zipcode"));
+			// member.getAddressHistory().add(new Address("old1", "street", "zipcode"));
+			// member.getAddressHistory().add(new Address("old2", "street", "zipcode"));
+
+			member.getAddressHistory().add(new AddressEntity("old1", "street", "zipcode"));
+			member.getAddressHistory().add(new AddressEntity("old2", "street", "zipcode"));
 
 			entityManager.persist(member);
 
@@ -49,8 +52,8 @@ public class JpaMain {
 			// findMember.getFavoriteFoods().add("rice");
 
 			System.out.println("=== UPDATE ADDRESS HISTORY ===");
-			findMember.getAddressHistory().remove(new Address("old1", "street", "zipcode"));
-			findMember.getAddressHistory().add(new Address("young", "street", "zipcode"));
+			findMember.getAddressHistory().remove(new AddressEntity("old1", "street", "zipcode"));
+			findMember.getAddressHistory().add(new AddressEntity("young", "street", "zipcode"));
 
 			entityTransaction.commit();
 		} catch (Exception e) {
