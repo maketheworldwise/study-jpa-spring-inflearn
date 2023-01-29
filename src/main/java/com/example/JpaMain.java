@@ -1,6 +1,8 @@
 package com.example;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,14 +19,19 @@ public class JpaMain {
 		entityTransaction.begin();
 
 		try {
-			Address address = new Address("city", "street", "zipcode");
 			Member member = new Member();
-			member.setHomeAddress(address);
+			member.setName("member1");
+			member.setHomeAddress(new Address("homeCity", "street", "zipcode"));
+
+			member.getFavoriteFoods().add("chicken");
+			member.getFavoriteFoods().add("hamburger");
+			member.getFavoriteFoods().add("pizza");
+
+			member.getAddressHistory().add(new Address("old1", "street", "zipcode"));
+			member.getAddressHistory().add(new Address("old2", "street", "zipcode"));
+
 			entityManager.persist(member);
-
-			Address newAddress = new Address("newCity", address.getStreet(), address.getZipcode());
-			member.setHomeAddress(newAddress);
-
+			
 			entityTransaction.commit();
 		} catch (Exception e) {
 			entityTransaction.rollback();
