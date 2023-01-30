@@ -16,3 +16,11 @@
 - loading : 즉시 로딩, 지연 로딩
 - cascade : 영속성 전이와 고아 객체
 - value-type : 값 타입
+
+## 🚀 실전 예제
+
+- https://github.com/maketheworldwise/study-jpa-spring-inflearn-practice
+
+## 🚀 JPQL 파트
+
+- https://github.com/maketheworldwise/study-jpql-spring-inflearn
